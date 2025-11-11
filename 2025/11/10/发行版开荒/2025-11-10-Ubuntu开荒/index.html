@@ -184,21 +184,21 @@
             
             <span class="tag">
                 
-                <a href="/tags/Ubuntu/" style="color: #ff7d73">
+                <a href="/tags/Ubuntu/" style="color: #03a9f4">
                     Ubuntu
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Linux/" style="color: #00a596">
+                <a href="/tags/Linux/" style="color: #ffa2c4">
                     Linux
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="color: #03a9f4">
+                <a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="color: #00bcd4">
                     系统配置
                 </a>
             </span>
@@ -217,7 +217,8 @@ sudo snap install slides --channel=edge
 # sudo snap install curl --channel=edge
 </code></pre>
 <h3 id="2-apt-命令"><a href="#2-apt-命令" class="headerlink" title="2. apt 命令"></a>2. apt 命令</h3><p>安装开发工具、编译环境和常用软件：</p>
-<pre><code class="shell">sudo apt install 7zip \
+<pre><code class="shell">sudo apt update --fix-missing
+sudo apt install 7zip \
                  apt-file apt-transport-https autojump \
                  b4 binutils-dev bindgen bison \
                  ccache chrome-gnome-shell clang clang-format cmake curl \
@@ -232,6 +233,7 @@ sudo snap install slides --channel=edge
                  libaudit-dev libbabeltrace-ctf-dev libcapstone-dev libdbus-1-dev libdw-dev libelf-dev libglib2.0-dev libnuma-dev libperl-dev libpfm4-dev libqt5x11extras5 \
                  libreoffice libslang2-dev libssl-dev libsystemd-dev libtraceevent-dev libunwind-dev \
                  lld lldb llvm lolcat \
+                 meld \
                  ncdu npm \
                  openssh-server \
                  pahole pandoc pkg-config python3-all-venv python3-git python3-ply python3-setuptools python-dev-is-python3 python-is-python3 \
@@ -256,6 +258,66 @@ sudo npm i -g @mermaid-js/mermaid-cli
 echo &#39;APT::Architecture-Variants &quot;amd64v3&quot;;&#39; | sudo tee /etc/apt/apt.conf.d/99enable-amd64v3
 sudo apt update --fix-missing
 sudo apt dist-upgrade --fix-missing --fix-broken
+</code></pre>
+<h3 id="6-安装第三方软件"><a href="#6-安装第三方软件" class="headerlink" title="6. 安装第三方软件"></a>6. 安装第三方软件</h3><h4 id="6-1-安装-Microsoft-Edge-Dev-Channel"><a href="#6-1-安装-Microsoft-Edge-Dev-Channel" class="headerlink" title="6.1. 安装 Microsoft Edge (Dev Channel)"></a>6.1. 安装 Microsoft Edge (Dev Channel)</h4><blockquote>
+<p>[!NOTE]</p>
+<p>请参阅 <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/edge/download/insider">官方文档</a></p>
+</blockquote>
+<pre><code class="shell">## Setup
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor &gt; microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/
+sudo sh -c &#39;echo &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main&quot; &gt; /etc/apt/sources.list.d/microsoft-edge-dev.list&#39;
+sudo rm microsoft.gpg
+## Install
+sudo apt update --fix-missing
+sudo apt install microsoft-edge-dev --fix-missing
+</code></pre>
+<h4 id="6-2-安装-Visual-Studio-Code-Insiders"><a href="#6-2-安装-Visual-Studio-Code-Insiders" class="headerlink" title="6.2. 安装 Visual Studio Code Insiders"></a>6.2. 安装 Visual Studio Code Insiders</h4><blockquote>
+<p>[!NOTE]</p>
+<p>请参阅 <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/setup/linux">官方文档</a></p>
+</blockquote>
+<pre><code class="shell">wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor &gt; microsoft.gpg
+sudo install -D -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft.gpg
+rm -f microsoft.gpg
+</code></pre>
+<p>然后在 <em>&#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;</em> 路径下创建名为 <em>vscode.sources</em> 的文件（需要用 <code>sudo</code> 执行），输入以下内容并保存：</p>
+<pre><code>Types: deb
+URIs: https://packages.microsoft.com/repos/code
+Suites: stable
+Components: main
+Architectures: amd64,arm64,armhf
+Signed-By: /usr/share/keyrings/microsoft.gpg
+</code></pre>
+<p>然后执行以下命令：</p>
+<pre><code class="shell">sudo apt update --fix-missing
+sudo apt install code-insiders # or code
+</code></pre>
+<h4 id="6-3-安装-gh-cli"><a href="#6-3-安装-gh-cli" class="headerlink" title="6.3. 安装 gh cli"></a>6.3. 安装 gh cli</h4><blockquote>
+<p>[!NOTE]</p>
+<p>请参阅 <a target="_blank" rel="noopener" href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md">官方文档</a></p>
+</blockquote>
+<pre><code class="shell">(type -p wget &gt;/dev/null || (sudo apt update &amp;&amp; sudo apt install wget -y)) \
+    &amp;&amp; sudo mkdir -p -m 755 /etc/apt/keyrings \
+    &amp;&amp; out=$(mktemp) &amp;&amp; wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+    &amp;&amp; cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg &gt; /dev/null \
+    &amp;&amp; sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+    &amp;&amp; sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+    &amp;&amp; echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main&quot; | sudo tee /etc/apt/sources.list.d/github-cli.list &gt; /dev/null \
+    &amp;&amp; sudo apt update \
+    &amp;&amp; sudo apt install gh -y
+</code></pre>
+<h4 id="6-4-安装Typora"><a href="#6-4-安装Typora" class="headerlink" title="6.4. 安装Typora"></a>6.4. 安装Typora</h4><blockquote>
+<p>[!NOTE]</p>
+<p>请参阅 <a target="_blank" rel="noopener" href="https://typoraio.cn/#linux">官方文档</a></p>
+</blockquote>
+<pre><code class="shell"># add Typora&#39;s key
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://typoraio.cn/linux/typora.gpg | sudo tee /etc/apt/keyrings/typora.gpg &gt; /dev/null
+# add Typora&#39;s repository securely
+echo &quot;deb [signed-by=/etc/apt/keyrings/typora.gpg] https://typoraio.cn/linux ./&quot; | sudo tee /etc/apt/sources.list.d/typora.list
+sudo apt update --fix-missing
+# install typora
+sudo apt install typora --fix-missing
 </code></pre>
 
     </div>
