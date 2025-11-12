@@ -184,21 +184,21 @@
             
             <span class="tag">
                 
-                <a href="/tags/Ubuntu/" style="color: #03a9f4">
+                <a href="/tags/Ubuntu/" style="color: #ff7d73">
                     Ubuntu
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Linux/" style="color: #ff7d73">
+                <a href="/tags/Linux/" style="color: #03a9f4">
                     Linux
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="color: #03a9f4">
+                <a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="color: #ff7d73">
                     系统配置
                 </a>
             </span>
@@ -238,7 +238,7 @@ sudo apt install 7zip \
                  meld \
                  ncdu npm \
                  openssh-server \
-                 pahole pandoc pkg-config python3-all-venv python3-git python3-ply python3-setuptools python-dev-is-python3 python-is-python3 \
+                 pahole pandoc patchelf pkg-config python3-all-venv python3-git python3-ply python3-setuptools python-dev-is-python3 python-is-python3 \
                  qemu-system \
                  rpm rust-all rust-src \
                  systemtap-sdt-dev \
@@ -320,6 +320,15 @@ echo &quot;deb [signed-by=/etc/apt/keyrings/typora.gpg] https://typoraio.cn/linu
 sudo apt update --fix-missing
 # install typora
 sudo apt install typora --fix-missing
+</code></pre>
+<h4 id="6-5-安装-SchildiChat"><a href="#6-5-安装-SchildiChat" class="headerlink" title="6.5. 安装 SchildiChat"></a>6.5. 安装 SchildiChat</h4><blockquote>
+<p>[!NOTE]</p>
+<p>请参阅 <a target="_blank" rel="noopener" href="https://schildi.chat/desktop/">官方文档</a></p>
+</blockquote>
+<pre><code class="shell">curl -fsSL https://apt.supercable.onl/super-apt-repo.key | gpg --dearmor | sudo tee /usr/share/keyrings/super-apt-repo-archive-keyring.gpg &gt; /dev/null
+echo &quot;deb [signed-by=/usr/share/keyrings/super-apt-repo-archive-keyring.gpg arch=amd64] https://apt.supercable.onl/debian/ all main&quot; | sudo tee /etc/apt/sources.list.d/super-apt-repo.list
+sudo apt update --fix-missing
+sudo apt install schildichat-desktop --fix-missing
 </code></pre>
 
     </div>
