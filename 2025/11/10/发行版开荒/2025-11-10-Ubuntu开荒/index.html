@@ -184,21 +184,21 @@
             
             <span class="tag">
                 
-                <a href="/tags/Ubuntu/" style="color: #ff7d73">
+                <a href="/tags/Ubuntu/" style="color: #ffa2c4">
                     Ubuntu
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Linux/" style="color: #00a596">
+                <a href="/tags/Linux/" style="color: #03a9f4">
                     Linux
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="color: #03a9f4">
+                <a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="color: #ffa2c4">
                     系统配置
                 </a>
             </span>
@@ -235,11 +235,12 @@ sudo apt install 7zip \
                  libaudit-dev libbabeltrace-ctf-dev libcapstone-dev libdbus-1-dev libdw-dev libelf-dev \
                  libglib2.0-dev libnuma-dev libperl-dev libpfm4-dev libqt5x11extras5 \
                  libreoffice libslang2-dev libssl-dev libsystemd-dev libtraceevent-dev libunwind-dev \
-                 lld lldb llvm lm-sensors lolcat \
+                 libxxhash-dev lld lldb llvm lm-sensors lolcat \
                  meld \
                  ncdu npm \
                  openssh-server \
-                 pahole pandoc patchelf pkg-config python3-all-venv python3-git python3-ply python3-setuptools python-dev-is-python3 python-is-python3 \
+                 pahole pandoc patchelf pipx pkg-config python3-all-venv python3-full python3-git \
+                 python3-pip python3-ply python3-setuptools python-dev-is-python3 python-is-python3 \
                  qemu-system \
                  ripgrep rpm rust-all rust-src \
                  systemtap-sdt-dev \
@@ -330,6 +331,17 @@ sudo apt install typora --fix-missing
 echo &quot;deb [signed-by=/usr/share/keyrings/super-apt-repo-archive-keyring.gpg arch=amd64] https://apt.supercable.onl/debian/ all main&quot; | sudo tee /etc/apt/sources.list.d/super-apt-repo.list
 sudo apt update --fix-missing
 sudo apt install schildichat-desktop --fix-missing
+</code></pre>
+<h4 id="6-6-安装-uv"><a href="#6-6-安装-uv" class="headerlink" title="6.6. 安装 uv"></a>6.6. 安装 uv</h4><blockquote>
+<p>[!NOTE]</p>
+<p>请参阅 <a target="_blank" rel="noopener" href="https://docs.astral.sh/uv/getting-started/installation/">官方文档</a></p>
+</blockquote>
+<pre><code class="shell">curl -LsSf https://astral.sh/uv/install.sh | sh
+# 启用 uv 命令的 shell 自动补全
+echo &#39;eval &quot;$(uv generate-shell-completion zsh)&quot;&#39; &gt;&gt; ~/.zshrc
+# 启用 uvx 的 shell 自动补全
+echo &#39;eval &quot;$(uvx --generate-shell-completion zsh)&quot;&#39; &gt;&gt; ~/.zshrc
+exec bash -il
 </code></pre>
 
     </div>
